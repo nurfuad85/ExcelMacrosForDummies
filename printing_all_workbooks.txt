@@ -1,0 +1,21 @@
+'Printing All Workbooks in a Directory
+
+Sub Macro1()
+'Step 1: Declare your variables.
+Dim MyFiles As String
+
+'Step 2: Specify a target directory.
+MyFiles = Dir("C:\Temp\*.xlsx")
+
+Do While Len(MyFiles) > 0
+
+'Step 3: Open Workbooks one by one.
+Workbooks.Open "C:\Temp\" & MyFiles
+ActiveWorkbook.Sheets("Sheet1").PrintOut Copies:=1
+ActiveWorkbook.Close SaveChanges:=False
+
+'Step 4: Next file in the directory.
+MyFiles = Dir
+Loop
+
+End Sub
