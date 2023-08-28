@@ -1,0 +1,41 @@
+'Determining Whether a Workbook Is Already Open
+
+Sub Macro1()
+'Step 1: Define a string variable.
+Dim FName As Variant
+Dim FNFileOnly As String
+
+'Step 2: GetOpenFilename method activates dialog box.
+FName = Application.GetOpenFilename( _
+    FileFilter:="Excel Workbooks,*.xl*", _
+    Title:="Choose a Workbook to Open", _
+    MultiSelect:=False)
+
+'Step 3: Open the chosen file if not already opened.
+If FName <> False Then
+    FNFileOnly = Dir(FName)
+    If FileIsOpen(FNFileOnly) = True Then
+        Workbooks(FNFileOnly).Activate
+Else
+    Workbooks.Open Filename:=FName
+    End If
+End If
+End Sub
+
+Function FileIsOpen(TargetWorkbook As String) As Boolean
+'Step 1: Declare variables.
+Dim TestBook As Workbook
+
+'Step 2: Tell Excel to resume on error.
+On Error Resume Next
+
+'Step 3: Try to assign the target workbook to TestBook.
+Set TestBook = Workbooks(TargetWorkbook)
+
+'Step 4: If no error occurred then workbook is already open.
+If Err.Number = 0 Then
+    FileIsOpen = True
+Else
+    FileIsOpen = False
+End If
+End Function
