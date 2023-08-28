@@ -1,0 +1,24 @@
+'Determining Whether a Workbook Exists in a Directory
+
+Function FileExists(FPath As String) As Boolean
+'Step 1: Declare your variables.
+Dim FName As String
+
+'Step 2: Use the Dir function to get the filename.
+FName = Dir(FPath)
+'Step 3: If file exists, return True else False.
+If Len(FName) <> 0 Then
+    FileExists = True
+Else
+    FileExists = False
+End If
+End Function
+
+'-------------------------------------------------------------------------------------
+Sub Macro1()
+If FileExists("C:\Users\nurfu\Documents\Excel_Macros_Dummies\Data.xlsm") = True Then
+    MsgBox "File exists."
+Else
+    MsgBox "File does not exist."
+End If
+End Sub
