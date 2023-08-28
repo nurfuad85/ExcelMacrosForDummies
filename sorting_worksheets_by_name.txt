@@ -1,0 +1,21 @@
+'Sorting Worksheets by Name
+
+Sub SortByName()
+'Step 1: Declare your variables.
+Dim idxCurr As Long
+Dim idxPrev As Long
+'Step 2: Set the starting counts and start looping.
+For idxCurr = 2 To Sheets.Count
+    For idxPrev = 1 To idxCurr - 1
+'Step 3: Check current sheet against previous sheet.
+        If UCase(Sheets(idxPrev).Name) > _
+            UCase(Sheets(idxCurr).Name) Then
+'Step 4: If move current sheet before previous.
+            Sheets(idxCurr).Move _
+                Before:=Sheets(idxPrev)
+        End If
+'Step 5: Loop back around to iterate again
+    Next idxPrev
+Next idxCurr
+
+End Sub
