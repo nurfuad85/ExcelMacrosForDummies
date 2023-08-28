@@ -1,0 +1,35 @@
+'Creating a Table of Contents for Your Worksheets
+
+Sub CreateTOC()
+'Step 1: Declare variables.
+Dim i As Long
+
+'Step 2: Delete previous TOC if exists.
+On Error Resume Next
+Application.DisplayAlerts = False
+
+Sheets("Table Of Contents").Delete
+
+Application.DisplayAlerts = True
+On Error GoTo 0
+
+'Step 3: Add a new TOC sheet as the first sheet.
+ThisWorkbook.Sheets.Add _
+    Before:=ThisWorkbook.Worksheets(1)
+ActiveSheet.Name = "Table Of Contents"
+
+'Step 4: Start the i counter.
+For i = 1 To Sheets.Count
+'Step 5: Select next available row.
+ActiveSheet.Cells(i, 1).Select
+'Step 6: Add sheet name and hyperlink.
+ActiveSheet.Hyperlinks.Add _
+    Anchor:=ActiveSheet.Cells(i, 1), _
+    Address:="", _
+    SubAddress:="'" & Sheets(i).Name & "'!A1", _
+    TextToDisplay:=Sheets(i).Name
+'Step 7: Loop back increment i.
+Next i
+
+End Sub
+
